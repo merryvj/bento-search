@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Summary from './components/Summary';
+import Article from './components/Article';
 
 interface ApiResponse {
   title: string;
@@ -118,10 +119,11 @@ function App() {
 
   return (
     <div className="App">
-      {/* {data.map((item: ApiResponse) => (
-        <div key={item.id}>{item.title}</div>
-      ))} */}
-      <Summary summary={summary} />
+      <Summary summary={summary}>
+        {data.map((item: ApiResponse) => (
+          <Article key={item.id} title={item.title}/>
+        ))}
+      </Summary>
 
     </div>
   );
