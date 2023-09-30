@@ -25,7 +25,8 @@ const titles = [
 ]
 
 app.get("/summary", async (req: Request, res: Response) => {
-  res.json(await getSummary(titles));
+  const output = await getSummary(titles);
+  res.json(output);
 })
 // app.post("/summary", async (req: Request, res: Response) => {
 //   const { titles } = req.body;

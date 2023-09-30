@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Summary from './components/Summary';
 
 interface ApiResponse {
   title: string;
@@ -100,18 +101,28 @@ const data: ApiResponse[] = [
 function App() {
   // const [data, setData] = useState<ApiResponse[]>([]);
 
+  const [summary, setSummary] = useState<string>("");
+
   // useEffect(() => {
   //   fetch('/api')
   //     .then(response => response.json())
   //     .then(data => setData(data.results))
   //     .catch(error => console.log(error));
   // }, []);
+  useEffect(() => {
+    fetch('/summary')
+      .then(response => response.json())
+      .then(data => setSummary(data.result))
+      .catch(error => console.log(error));
+  }, []);
 
   return (
     <div className="App">
-      {data.map((item: ApiResponse) => (
+      {/* {data.map((item: ApiResponse) => (
         <div key={item.id}>{item.title}</div>
-      ))}
+      ))} */}
+      <Summary summary={summary} />
+
     </div>
   );
 }
