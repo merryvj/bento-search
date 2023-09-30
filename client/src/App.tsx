@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Summary from './components/Summary';
 import Article from './components/Article';
+import LocaleInput from './components/LocaleInput';
 
 interface ApiResponse {
   title: string;
@@ -101,7 +102,7 @@ const data: ApiResponse[] = [
 ];
 function App() {
   // const [data, setData] = useState<ApiResponse[]>([]);
-
+  const [locale, setLocale] = useState<string>("New York City");
   const [summary, setSummary] = useState<string>("");
 
   // useEffect(() => {
@@ -119,6 +120,7 @@ function App() {
 
   return (
     <div className="App">
+      <LocaleInput onSubmit={(locale) => setLocale(locale)}/>
       <Summary summary={summary}>
         {data.map((item: ApiResponse) => (
           <Article key={item.id} title={item.title}/>
