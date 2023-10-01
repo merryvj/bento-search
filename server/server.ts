@@ -1,33 +1,53 @@
 import Metaphor, { SearchOptions, SearchResponse } from 'metaphor-node';
 import express, { Request, Response } from 'express';
+import bodyParser from 'body-parser';
+
 import {getSummary} from './ai';
 
-const app = express();
 
 const metaphor = new Metaphor('7087297d-5455-4d9a-9f98-0a442a0e04fa');
 
-app.get("/api", async (req: Request, res: Response) => {
-    let result: SearchResponse = await metaphor.search('what is happening in New York City? Include a mix of good and bad news.', {startPublishedDate: "2023-06-24"});
+const app = express();
+
+// register body-parser middleware
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  }),
+);
+
+app.post("/search", async (req: Request, res: Response) => {
+  const { city } = req.body;
+ 
+  try {
+    const result: SearchResponse = await metaphor.search(`what is the good stuff happening in ${city}?`, { startPublishedDate: "2023-06-30" });
     res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 })
 
-const titles = [
-  "State of emergency issued for New York as heavy rain and intense floods pummel city – live",
-  "New York City’s not-so-sudden migrant surge, explained",
-  "New York declares state of emergency amid heavy rainfall and flash flooding",
-  "New York City reels after flash flooding chaos and powerful downpours",
-  "New York City in state of emergency as torrential rain floods subways, roads and basements",
-  "Why So Many Migrants Are Coming to New York",
-  "New York City’s Floods and Torrential Rainfall Explained",
-  "Rain Eases, but Officials Warn That Flood Risks Remain",
-  "NYC flooding live updates: Millions at risk of flooding in tri-state area",
-  "One-year-old dies at New York City daycare and three children hospitalized"
-]
+// const titles = [
+//   "State of emergency issued for New York as heavy rain and intense floods pummel city – live",
+//   "New York City’s not-so-sudden migrant surge, explained",
+//   "New York declares state of emergency amid heavy rainfall and flash flooding",
+//   "New York City reels after flash flooding chaos and powerful downpours",
+//   "New York City in state of emergency as torrential rain floods subways, roads and basements",
+//   "Why So Many Migrants Are Coming to New York",
+//   "New York City’s Floods and Torrential Rainfall Explained",
+//   "Rain Eases, but Officials Warn That Flood Risks Remain",
+//   "NYC flooding live updates: Millions at risk of flooding in tri-state area",
+//   "One-year-old dies at New York City daycare and three children hospitalized"
+// ]
 
-app.get("/summary", async (req: Request, res: Response) => {
+app.post("/summary", async (req: Request, res: Response) => {
+  const {titles} = req.body;
   const output = await getSummary(titles);
   res.json(output);
 })
+
 // app.post("/summary", async (req: Request, res: Response) => {
 //   const { titles } = req.body;
 //   try {

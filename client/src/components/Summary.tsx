@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface SummaryProps {
   summary: string;
@@ -6,8 +6,14 @@ interface SummaryProps {
 }
 
 const Summary: React.FC<SummaryProps> = ({ summary, children}) => {
+    const [text, setText] = useState<string>("");
+
+    useEffect(() => {
+        setText(summary);
+    }, [summary])
+    
   return <div className='text-3xl p-8 m-8 bg-slate-100 rounded-2xl flex flex-col gap-8'>
-    {summary}
+    {text}
     {children}
     </div>;
 };
