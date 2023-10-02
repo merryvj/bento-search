@@ -35,7 +35,7 @@ function App() {
       .then(data => {
         const results = data.results;
         setData(results);
-        fetchContent(results);
+        //fetchContent(results);
       })
       .catch(error => console.log(error));
   }
@@ -68,7 +68,7 @@ function App() {
       .then(response => response.json())
       .then(data => {
         const extracts = data.contents.map((item: { extract: string }) => item.extract);
-        fetchSummary(extracts);
+        //fetchSummary(extracts);
       })
       .catch(error => console.log(error));
   };
@@ -93,16 +93,12 @@ function App() {
     <div className="App">
       <LocaleInput onSubmit={(locale) => setLocale(locale)}/>
       
-      <Summary summary={summary}>
-        <div className='flex gap-4'>
-          {queries.length > 0 && queries.map((query: string) => (
-            <div className='p-4 bg-slate-300 rounded-3xl'>{query}</div>
-          ))}
-        </div>
-        {data.map((item: ApiResponse) => (
+      <div className='grid grid-cols-3 gap-8'>
+      
+      {data.map((item: ApiResponse) => (
           <Article key={item.id} title={item.title} url={item.url}/>
-        ))}
-      </Summary>
+      ))}
+      </div>
 
     </div>
   );

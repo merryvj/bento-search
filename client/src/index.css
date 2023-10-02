@@ -9,6 +9,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+  height: 100vh;
+  width: 100vw;
+  background-color: #F2EFEB;
 }
 
 p {

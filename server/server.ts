@@ -25,9 +25,9 @@ app.post("/search", async (req: Request, res: Response) => {
     const result: SearchResponse = await metaphor.search(
       `Everyone is talking about this in ${city}:`,
       {
-        startPublishedDate: "2023-09-27", //TODO: calculate this
+        // startPublishedDate: "2023-09-27", //TODO: calculate this
         useAutoprompt:true,
-        numResults: 3
+        numResults: 9
       });
     res.json(result);
   } catch (error) {
