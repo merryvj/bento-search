@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Summary from './components/Summary';
 import Article from './components/Article';
 import LocaleInput from './components/LocaleInput';
+import './App.css';
 
 interface ApiResponse {
   title: string;
@@ -34,20 +35,18 @@ function App() {
       .then(data => {
         const results = data.results;
         setData(results);
-        fetchSummary(results);
-        //fetchContent(results);
+        fetchContent(results);
       })
       .catch(error => console.log(error));
   }
 
-  const fetchSummary = async(results:ApiResponse[]) => {
-    const titles = results.map((item: ApiResponse) => item.title);
+  const fetchSummary = async(extracts:string[]) => {
     fetch('/summary', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ titles: titles })
+      body: JSON.stringify({ content: extracts })
     })
       .then(response => response.json())
       .then(data => {
@@ -68,7 +67,8 @@ function App() {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        const extracts = data.contents.map((item: { extract: string }) => item.extract);
+        fetchSummary(extracts);
       })
       .catch(error => console.log(error));
   };
@@ -92,13 +92,13 @@ function App() {
   return (
     <div className="App">
       <LocaleInput onSubmit={(locale) => setLocale(locale)}/>
-      <div>
-        {queries.length > 0 && queries.map((query: string) => (
-          <span>{query}</span>
-        ))}
-      </div>
       
       <Summary summary={summary}>
+        <div className='flex gap-4'>
+          {queries.length > 0 && queries.map((query: string) => (
+            <div className='p-4 bg-slate-300 rounded-3xl'>{query}</div>
+          ))}
+        </div>
         {data.map((item: ApiResponse) => (
           <Article key={item.id} title={item.title} url={item.url}/>
         ))}

@@ -5,15 +5,14 @@ import { RunnableSequence } from "langchain/schema/runnable";
 
 const model = new OpenAI({temperature: 0.5, modelName: "gpt-3.5-turbo"});
 
-export const getSummary = async(titles: string[]) => {
-    const text = titles.join(" ");
+export const getSummary = async(content: string[]) => {
 
     const prompt = PromptTemplate.fromTemplate(
-        `Please generate a brief summary based on the following: {headlines}`
+        `Please generate a brief summary based on all content from the following: {extracts}`
     );
 
     const input = await prompt.format({
-        headlines: text
+        extracts: content
     });
 
     const output = await model.call(input);
@@ -24,8 +23,8 @@ export const getSuggestedQueries = async(content: string) => {
     const parser = new CommaSeparatedListOutputParser();
 
     const chain = RunnableSequence.from([
-        PromptTemplate.fromTemplate("List 3 suggested search queries to help me respond based on this {text}.\n{format_instructions}"),
-        new OpenAI({ temperature: 0 }),
+        PromptTemplate.fromTemplate("Suggest 3 search queries related to this {text}.\n{format_instructions}"),
+        new OpenAI({ temperature: 1, modelName: "gpt-3.5-turbo"}),
         parser,
       ]);
 

@@ -54,8 +54,8 @@ app.post("/suggested", async (req: Request, res: Response) => {
 })
 
 app.post("/summary", async (req: Request, res: Response) => {
-  const {titles} = req.body;
-  const output = await getSummary(titles);
+  const {content} = req.body;
+  const output = await getSummary(content);
   res.json(output);
 })
 
