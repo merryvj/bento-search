@@ -21,7 +21,7 @@ app.post("/search", async (req: Request, res: Response) => {
   const { city } = req.body;
  
   try {
-    const result: SearchResponse = await metaphor.search(`what is the good stuff happening in ${city}?`, { startPublishedDate: "2023-06-30" });
+    const result: SearchResponse = await metaphor.search(`Everyone is talking about this in ${city}:`, { startPublishedDate: "2023-09-27", useAutoprompt:true});
     res.json(result);
   } catch (error) {
     console.error(error);

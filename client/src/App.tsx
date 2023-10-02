@@ -143,7 +143,7 @@ function App() {
       <LocaleInput onSubmit={(locale) => setLocale(locale)}/>
       <Summary summary={summary}>
         {data.map((item: ApiResponse) => (
-          <Article key={item.id} title={item.title}/>
+          <Article key={item.id} title={item.title} url={item.url}/>
         ))}
       </Summary>
 
