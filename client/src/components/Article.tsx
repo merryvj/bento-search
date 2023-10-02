@@ -58,14 +58,14 @@ const Article: React.FC<ArticleProps> = ({title, url, handleSimilar, handlePrevi
             )}
             </div>
 
-            <div className='absolute inset-0 p-4 bg-gradient-to-t from-black/75 flex flex-col justify-between transition-opacity duration-300' 
+            <div className='absolute inset-0 p-4 bg-gradient-to-t from-stone-800/80 flex flex-col justify-between transition-opacity duration-300' 
                 style={{opacity: (isHovered || isLoading) ? 1 : 0}}>
                 <div className='flex justify-between transition-opacity duration-300' style={{opacity: isHovered ? 1 : 0}}>
                     <div className='flex gap-2'>
-                        <button className='px-4 py-2 bg-stone-100 rounded-full font-semibold' onClick={handleSimilar}>Find similar</button>
-                        <button className='px-4 py-2 bg-stone-100 rounded-full font-semibold' onClick={handlePreview}>Preview</button>
+                        <button className='px-4 py-2 bg-stone-100 rounded-full font-semibold hover:bg-stone-200 transition-colors duration-300' onClick={handleSimilar}>Find similar</button>
+                        <button className='px-4 py-2 bg-stone-100 rounded-full font-semibold hover:bg-stone-200 transition-colors duration-300' onClick={handlePreview}>Preview</button>
                     </div>
-                    <a className='px-3 py-2 bg-stone-100 rounded-full font-semibold' href={url} target="_blank" rel="noreferrer">
+                    <a className='px-3 py-2 bg-stone-100 rounded-full font-semibold hover:bg-stone-200 transition-colors duration-300' href={url} target="_blank" rel="noreferrer">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                     </a>   
                 </div>
@@ -76,7 +76,7 @@ const Article: React.FC<ArticleProps> = ({title, url, handleSimilar, handlePrevi
           </div>
           <div>
           <div className='flex gap-3'>
-              <div className='w-28px rounded-full bg-white overflow-hidden'><img className='h-full w-full object-contain' src={`https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${url}&size=32`}/>
+              <div className='w-8 h-8 rounded-full bg-white overflow-hidden'><img className='h-full w-full object-contain' src={`https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${url}&size=64`}/>
               </div>
               <h4 className='text-xl font-semibold'>{domain}</h4>
           </div>
