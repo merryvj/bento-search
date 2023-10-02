@@ -2,11 +2,12 @@ import Metaphor, { GetContentsResponse, SearchOptions, SearchResponse } from 'me
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import puppeteer from 'puppeteer';
-
+import dotenv from 'dotenv';
 import {getSuggestedQueries, getSummary} from './ai';
 
+dotenv.config();
 
-const metaphor = new Metaphor('b9c431f4-b806-407b-a088-309f079b3398');
+const metaphor = new Metaphor(process.env.METAPHOR_API_KEY);
 
 const app = express();
 
