@@ -7,4 +7,6 @@ https://github.com/merryvj/bento-search/assets/41601131/88e58fa3-bbe0-4dc1-98c8-
 <img width="800" alt="Screenshot 2023-10-02 at 6 22 24 PM" src="https://github.com/merryvj/locality-bento/assets/41601131/f6d91308-f0d0-483f-91a1-939b21195006">
 <img width="800" alt="Screenshot 2023-10-02 at 6 22 49 PM" src="https://github.com/merryvj/locality-bento/assets/41601131/32b71c82-1a5d-4c82-b586-791e5e1a38f4">
 
+### Getting Started
 
+To run locally after cloning this project, create a [Metaphor API Key](https://dashboard.metaphor.systems/overview). Create a .env file inside ```/server``` and paste ```METAPHOR_API_KEY=<your_key>```. Then run ```npm i && npm run start``` in both the ```client``` and ```server```folders. 
