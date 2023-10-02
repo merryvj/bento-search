@@ -1,5 +1,7 @@
 import { OpenAI } from "langchain/llms/openai";
 import { PromptTemplate } from "langchain/prompts";
+import { CommaSeparatedListOutputParser } from "langchain/output_parsers";
+import { RunnableSequence } from "langchain/schema/runnable";
 
 const model = new OpenAI({temperature: 0.5, modelName: "gpt-3.5-turbo"});
 
@@ -19,14 +21,18 @@ export const getSummary = async(titles: string[]) => {
 }
 
 export const getSuggestedQueries = async(content: string) => {
-    const prompt = PromptTemplate.fromTemplate(
-        `Suggest 3 brief search queries for this text: {text}`
-    );
+    const parser = new CommaSeparatedListOutputParser();
 
-    const input = await prompt.format({
-        text: content
-    })
+    const chain = RunnableSequence.from([
+        PromptTemplate.fromTemplate("List 3 suggested search queries to help me respond based on this {text}.\n{format_instructions}"),
+        new OpenAI({ temperature: 0 }),
+        parser,
+      ]);
 
-    const output = await model.call(input);
+      const output = await chain.invoke({
+        text: content,
+        format_instructions: parser.getFormatInstructions(),
+      });
+
     return output;
 }
