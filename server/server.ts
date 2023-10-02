@@ -60,6 +60,19 @@ app.post("/summary", async (req: Request, res: Response) => {
   res.json(output);
 })
 
+app.get("/similar", async (req: Request, res: Response) => {
+  const url = req.query.url;
+  try {
+    const result = await metaphor.findSimilar(url.toString(), {numResults: 9});
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+})
+
+
+
 app.get('/capture', async (req: Request, res: Response) => {
   const url = req.query.url;
   if (!url) {

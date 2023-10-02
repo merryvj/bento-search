@@ -88,6 +88,22 @@ function App() {
       .catch(error => console.log(error));
   };
 
+  const fetchSimilarResults = async(url:string) => {
+    fetch(`/similar?url=${encodeURIComponent(url)}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        const results = data.results;
+        setData(results);
+      })
+      .catch(error => console.log(error));
+  }
+
+
 
   return (
     <div className="App">
@@ -96,7 +112,7 @@ function App() {
       <div className='grid grid-cols-3 gap-8'>
       
       {data.map((item: ApiResponse) => (
-          <Article key={item.id} title={item.title} url={item.url}/>
+          <Article key={item.id} title={item.title} url={item.url} handleSimilar={() => fetchSimilarResults(item.url)}/>
       ))}
       </div>
 
