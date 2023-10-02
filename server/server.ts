@@ -6,7 +6,7 @@ import puppeteer from 'puppeteer';
 import {getSuggestedQueries, getSummary} from './ai';
 
 
-const metaphor = new Metaphor('7087297d-5455-4d9a-9f98-0a442a0e04fa');
+const metaphor = new Metaphor('b9c431f4-b806-407b-a088-309f079b3398');
 
 const app = express();
 
@@ -93,6 +93,18 @@ app.get('/capture', async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Error capturing screenshot:', error);
     res.status(500).send('Error capturing screenshot.');
+  }
+});
+
+app.get('/extract', async (req: Request, res: Response) => {
+  const id = req.query.id;
+
+  try {
+    const result = await metaphor.getContents([id.toString()]);
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal server error');
   }
 });
 

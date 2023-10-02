@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Summary from './components/Summary';
 import Article from './components/Article';
 import LocaleInput from './components/LocaleInput';
+import Preview from './components/Preview';
 import './App.css';
 
 interface ApiResponse {
@@ -18,6 +19,7 @@ function App() {
   const [data, setData] = useState<ApiResponse[]>([]);
   const [summary, setSummary] = useState<string>("");
   const [queries, setQueries] = useState<string[]>([]);
+  const [previewData, setPreviewData] = useState<string | null>(null);
 
   useEffect(() => {
     fetchSearchResults();
@@ -103,6 +105,22 @@ function App() {
       .catch(error => console.log(error));
   }
 
+  const fetchPreviewExtract = async(id:string) => {
+    fetch(`/extract?id=${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        const results = data.contents;
+        setPreviewData(results[0].extract);
+      })
+      .catch(error => console.log(error));
+  }
+
+
 
 
   return (
@@ -112,8 +130,9 @@ function App() {
       <div className='grid grid-cols-3 gap-8'>
       
       {data.map((item: ApiResponse) => (
-          <Article key={item.id} title={item.title} url={item.url} handleSimilar={() => fetchSimilarResults(item.url)}/>
+          <Article key={item.id} title={item.title} url={item.url} handleSimilar={() => fetchSimilarResults(item.url)} handlePreview={() => fetchPreviewExtract(item.id)} />
       ))}
+      {previewData && <Preview extract={previewData} onClose={() => setPreviewData(null)} />}
       </div>
 
     </div>
