@@ -25,9 +25,9 @@ const Preview: React.FC<PreviewProps> = ({extract, onClose}) => {
   }, []);
 
   return (
-    <div className='fixed inset-0 h-full w-full bg-black/70 p-8' onClick={onClose}>
-        <div className='flex h-full w-1/2 m-auto bg-stone-100 overflow-hidden rounded-xl' onClick={(e) => e.stopPropagation()}>
-            <div className='text-2xl p-8 overflow-scroll' dangerouslySetInnerHTML={{ __html: cleanedExtract || ''}}/>
+    <div className='fixed inset-0 h-full w-full bg-black/70 p-8 z-20' onClick={onClose}>
+        <div className='relative flex h-full w-1/2 m-auto bg-stone-100 overflow-hidden rounded-xl' onClick={(e) => e.stopPropagation()}>
+            <div className='text-2xl p-8 overflow-scroll no-scrollbar' dangerouslySetInnerHTML={{ __html: cleanedExtract || ''}}/>
         </div>
     </div>
   );

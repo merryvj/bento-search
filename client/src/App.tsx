@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Summary from './components/Summary';
 import Article from './components/Article';
-import LocaleInput from './components/LocaleInput';
+import SearchBar from './components/SearchBar';
 import Preview from './components/Preview';
 import './App.css';
 
@@ -15,7 +15,7 @@ interface ApiResponse {
 }
 
 function App() {
-  const [locale, setLocale] = useState<string>("New York City");
+  const [search, setSearch] = useState<string>("New York City");
   const [data, setData] = useState<ApiResponse[]>([]);
   const [summary, setSummary] = useState<string>("");
   const [queries, setQueries] = useState<string[]>([]);
@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     fetchSearchResults();
-  }, [locale]);
+  }, [search]);
 
   const fetchSearchResults = async() => {
     fetch('/search', {
@@ -31,7 +31,7 @@ function App() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ city: locale })
+      body: JSON.stringify({ city: search })
     })
       .then(response => response.json())
       .then(data => {
@@ -125,9 +125,9 @@ function App() {
 
   return (
     <div className="App">
-      <LocaleInput onSubmit={(locale) => setLocale(locale)}/>
+      <SearchBar onSubmit={(search) => setSearch(search)}/>
       
-      <div className='grid grid-cols-3 gap-8'>
+      <div className='grid grid-cols-3 gap-8 mt-20'>
       
       {data.map((item: ApiResponse) => (
           <Article key={item.id} title={item.title} url={item.url} handleSimilar={() => fetchSimilarResults(item.url)} handlePreview={() => fetchPreviewExtract(item.id)} />
