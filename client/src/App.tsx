@@ -104,23 +104,57 @@ function App() {
   const [locale, setLocale] = useState<string>("New York City");
   const [data, setData] = useState<ApiResponse[]>([]);
   const [summary, setSummary] = useState<string>("");
+  const [url, setUrl] = useState<string>("https://metadevo.com/a-world-of-affect/");
+  const [content, setContent] = useState<any>("ho");
 
-  useEffect(() => {
-    fetch('/search', {
+  // useEffect(() => {
+  //   fetch('/search', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({ city: locale })
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       const results = data.results;
+  //       setData(results);
+  //       fetchSummary(results);
+  //     })
+  //     .catch(error => console.log(error));
+  // }, [locale]);
+
+    useEffect(() => {
+    fetch('/similar', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ city: locale })
+      body: JSON.stringify({ url: url })
     })
       .then(response => response.json())
       .then(data => {
         const results = data.results;
         setData(results);
-        fetchSummary(results);
+        fetchContent(results.slice(0, 3).map((result:ApiResponse) => result.id));
       })
       .catch(error => console.log(error));
-  }, [locale]);
+  }, [url]);
+
+  const fetchContent = async(ids:string[]) => {
+    fetch('/content', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ ids: ids})
+    })
+      .then(response => response.json())
+      .then(data => {
+        setContent(data);
+      })
+      .catch(error => console.log(error));
+  };
 
   const fetchSummary = async(results:ApiResponse[]) => {
     const titles = results.map((item: ApiResponse) => item.title);
@@ -141,11 +175,15 @@ function App() {
   return (
     <div className="App">
       <LocaleInput onSubmit={(locale) => setLocale(locale)}/>
-      <Summary summary={summary}>
-        {data.map((item: ApiResponse) => (
-          <Article key={item.id} title={item.title}/>
-        ))}
-      </Summary>
+      <div className="flex">
+        <Summary summary={summary}>
+          {data.map((item: ApiResponse) => (
+            <Article key={item.id} title={item.title} onClick={() => console.log('hi')}/>
+          ))}
+        </Summary>
+        <div className="flex-1">{content}</div>
+      </div>
+
 
     </div>
   );

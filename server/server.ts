@@ -1,8 +1,8 @@
-import Metaphor, { SearchOptions, SearchResponse } from 'metaphor-node';
+import Metaphor, { SearchOptions, SearchResponse, GetContentsResponse} from 'metaphor-node';
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 
-import {getSummary} from './ai';
+import {getContentSummary, getSummary} from './ai';
 
 
 const metaphor = new Metaphor('7087297d-5455-4d9a-9f98-0a442a0e04fa');
@@ -23,6 +23,32 @@ app.post("/search", async (req: Request, res: Response) => {
   try {
     const result: SearchResponse = await metaphor.search(`what is the good stuff happening in ${city}?`, { startPublishedDate: "2023-06-30" });
     res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+})
+
+app.post("/similar", async (req: Request, res: Response) => {
+  const { url } = req.body;
+ 
+  try {
+    const result: SearchResponse = await metaphor.findSimilar(url)
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+})
+
+app.post("/content", async (req: Request, res: Response) => {
+  const { ids } = req.body;
+  console.log(ids);
+ 
+  try {
+    const result: GetContentsResponse = await metaphor.getContents(ids);
+    const summary = await getContentSummary(result);
+    res.json(summary);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
