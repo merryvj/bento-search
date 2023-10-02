@@ -106,6 +106,10 @@ function App() {
   const [summary, setSummary] = useState<string>("");
 
   useEffect(() => {
+    fetchSearchResults();
+  }, [locale]);
+
+  const fetchSearchResults = async() => {
     fetch('/search', {
       method: 'POST',
       headers: {
@@ -118,9 +122,10 @@ function App() {
         const results = data.results;
         setData(results);
         fetchSummary(results);
+        fetchContent(results);
       })
       .catch(error => console.log(error));
-  }, [locale]);
+  }
 
   const fetchSummary = async(results:ApiResponse[]) => {
     const titles = results.map((item: ApiResponse) => item.title);
@@ -134,9 +139,42 @@ function App() {
       .then(response => response.json())
       .then(data => {
         setSummary(data);
+        fetchSuggestedQueries(data);
       })
       .catch(error => console.log(error));
   };
+
+  const fetchContent = async(results:ApiResponse[]) => {
+    const ids = results.map((item: ApiResponse) => item.id);
+    fetch('/content', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ ids: ids })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => console.log(error));
+  };
+
+  const fetchSuggestedQueries = async(extract:string) => {
+    fetch('/suggested', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({content: extract})
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => console.log(error));
+  };
+
 
   return (
     <div className="App">
