@@ -1,5 +1,6 @@
 # Bento Search 🍱
-A visual snack pack for browsing web searches using [Metaphor's API](https://platform.metaphor.systems/). Search using neural net results, find similar websites, and preview website content. 
+A visual snack pack for browsing web searches using [Metaphor's API](https://platform.metaphor.systems/) for search, finding similar sites, and previewing site content.
+
 
 ### Demo
 
