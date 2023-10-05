@@ -13,21 +13,12 @@ const metaphor = new Metaphor(process.env.METAPHOR_API_KEY);
 const app = express();
 
 const corsOptions = {
-  origin: 'https://bento-search.onrender.com',
+  origin: '*',
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['*'],
   credentials: true,
   optionsSuccessStatus: 200
 };
-
-app.options('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', 'https://bento-search.onrender.com');
-  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  res.sendStatus(200);
-});
-
-app.use(cors(corsOptions));
 
 app.use(cors(corsOptions));
 
