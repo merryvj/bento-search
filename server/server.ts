@@ -13,11 +13,9 @@ const metaphor = new Metaphor(process.env.METAPHOR_API_KEY);
 const app = express();
 
 app.use(cors({
-  'allowedHeaders': ['Content-Type'],
-  'exposedHeaders': ['Content-Type'],
-  'origin': '*',
-  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  'preflightContinue': false
+  origin: '*',
+  methods: ['GET', 'POST', 'DELETE', 'PUT'],
+  headers: ['Content-Type'],
 }));
 
 // register body-parser middleware
