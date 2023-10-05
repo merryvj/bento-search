@@ -41,12 +41,12 @@ app.use(
   }),
 );
 
-app.post("/search", async (req: Request, res: Response) => {
-  const { city } = req.body;
+app.get("/search", async (req: Request, res: Response) => {
+  const query = req.query.query;
  
   try {
     const result: SearchResponse = await metaphor.search(
-      `Everyone is talking about this in ${city}:`,
+      `Everyone is talking about this in ${query}:`,
       {
         // startPublishedDate: "2023-09-27", //TODO: calculate this
         useAutoprompt:true,

@@ -26,13 +26,8 @@ function App() {
   }, [search]);
 
   const fetchSearchResults = async() => {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/search`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ city: search })
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/search?query=${encodeURIComponent(search)}`, {
+      method: 'GET',
     })
       .then(response => response.json())
       .then(data => {
