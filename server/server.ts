@@ -11,6 +11,7 @@ dotenv.config();
 const metaphor = new Metaphor(process.env.METAPHOR_API_KEY);
 
 const app = express();
+app.options('*', cors())
 
 app.use(cors({
   origin: 'https://bento-search.onrender.com'
