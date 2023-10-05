@@ -12,7 +12,7 @@ export const getSummary = async(content: string[]) => {
     );
 
     const input = await prompt.format({
-        extracts: content
+        extracts: content.slice(0, 2)
     });
 
     const output = await model.call(input);

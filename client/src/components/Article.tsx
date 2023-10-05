@@ -76,7 +76,7 @@ const Article: React.FC<ArticleProps> = ({title, url, handleSimilar, handlePrevi
           </div>
           <div>
           <div className='flex gap-3'>
-              <div className='w-8 h-8 rounded-full bg-white overflow-hidden'><img className='h-full w-full object-contain' src={`https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${url}&size=64`}/>
+              <div className='w-8 h-8 rounded-full bg-white overflow-hidden'><img className='h-full w-full object-contain' src={`https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${url}&size=`}/>
               </div>
               <h4 className='text-xl font-semibold'>{domain}</h4>
           </div>
