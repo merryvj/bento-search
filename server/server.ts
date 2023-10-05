@@ -13,10 +13,11 @@ const metaphor = new Metaphor(process.env.METAPHOR_API_KEY);
 const app = express();
 
 const corsOptions = {
-  origin: 'https://bento-search.onrender.com'
-};
+  origin:'*', 
+  credentials:true,            
+  optionSuccessStatus:200,
+}
 
-app.options('*', cors(corsOptions));
 app.use(cors(corsOptions));
 
 // register body-parser middleware
