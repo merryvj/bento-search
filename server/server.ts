@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import puppeteer from 'puppeteer';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import {getSuggestedQueries, getSummary} from './utils/ai';
 
 dotenv.config();
@@ -10,6 +11,10 @@ dotenv.config();
 const metaphor = new Metaphor(process.env.METAPHOR_API_KEY);
 
 const app = express();
+
+app.use(cors({
+  origin: 'https://bento-search.onrender.com'
+}));
 
 // register body-parser middleware
 app.use(bodyParser.json());
