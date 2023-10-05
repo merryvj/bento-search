@@ -26,7 +26,7 @@ function App() {
   }, [search]);
 
   const fetchSearchResults = async() => {
-    fetch('/search', {
+    fetch('https://bento-backend.onrender.com/search', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ function App() {
   }
 
   const fetchSummary = async(extracts:string[]) => {
-    fetch('/summary', {
+    fetch('https://bento-backend.onrender.com/summary', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ function App() {
 
   const fetchContent = async(results:ApiResponse[]) => {
     const ids = results.map((item: ApiResponse) => item.id);
-    fetch('/content', {
+    fetch('https://bento-backend.onrender.com/content', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -76,7 +76,7 @@ function App() {
   };
 
   const fetchSuggestedQueries = async(extract:string) => {
-    fetch('/suggested', {
+    fetch('https://bento-backend.onrender.com/suggested', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ function App() {
   };
 
   const fetchSimilarResults = async(url:string) => {
-    fetch(`/similar?url=${encodeURIComponent(url)}`, {
+    fetch(`https://bento-backend.onrender.com/similar?url=${encodeURIComponent(url)}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -106,7 +106,7 @@ function App() {
   }
 
   const fetchPreviewExtract = async(id:string) => {
-    fetch(`/extract?id=${id}`, {
+    fetch(`https://bento-backend.onrender.com/extract?id=${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
