@@ -12,7 +12,11 @@ const metaphor = new Metaphor(process.env.METAPHOR_API_KEY);
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  origin: '*'
+}
+
+app.use(cors(corsOptions));
 
 // register body-parser middleware
 app.use(bodyParser.json());
