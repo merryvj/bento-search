@@ -50,6 +50,7 @@ app.post("/search", async (req: Request, res: Response) => {
         useAutoprompt:true,
         numResults: 9
       });
+    console.log(result);
     res.json(result);
   } catch (error) {
     console.error(error);
