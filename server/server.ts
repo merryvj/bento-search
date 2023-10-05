@@ -13,14 +13,14 @@ const metaphor = new Metaphor(process.env.METAPHOR_API_KEY);
 const app = express();
 
 const corsOptions = {
-  origin: '*',
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  allowedHeaders: ['*'],
+  origin: ['*'],
+  allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
   credentials: true,
-  optionsSuccessStatus: 200
-};
+  enablePreflight: true
+}
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions))
 
 // register body-parser middleware
 app.use(bodyParser.json());
