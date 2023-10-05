@@ -24,7 +24,7 @@ const Article: React.FC<ArticleProps> = ({title, url, handleSimilar, handlePrevi
     const captureScreenshot = async () => {
         setIsLoading(true); // Set loading to true before starting the request
         try {
-          const response = await axios.get(`/capture?url=${encodeURIComponent(url)}`, {
+          const response = await axios.get(`https://bento-backend.onrender.com/capture?url=${encodeURIComponent(url)}`, {
             responseType: 'arraybuffer',
           });
     
