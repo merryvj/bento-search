@@ -20,6 +20,15 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'https://bento-search.onrender.com');
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.sendStatus(200);
+});
+
+app.use(cors(corsOptions));
+
 app.use(cors(corsOptions));
 
 // register body-parser middleware
