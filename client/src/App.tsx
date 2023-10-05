@@ -26,7 +26,7 @@ function App() {
   }, [search]);
 
   const fetchSearchResults = async() => {
-    fetch(`${process.env.REACT_APP_BACKEND_URL}/search?query=${encodeURIComponent(search)}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/search?term=${encodeURIComponent(search)}`, {
       method: 'GET',
     })
       .then(response => response.json())

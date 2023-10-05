@@ -27,11 +27,11 @@ app.use(
 );
 
 app.get("/search", async (req: Request, res: Response) => {
-  const query = req.query.query;
+  const term = req.query.term;
  
   try {
     const result: SearchResponse = await metaphor.search(
-      `Everyone is talking about this in ${query}:`,
+      `Everyone is talking about this in ${term}:`,
       {
         // startPublishedDate: "2023-09-27", //TODO: calculate this
         useAutoprompt:true,
