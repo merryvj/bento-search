@@ -26,7 +26,7 @@ function App() {
   }, [search]);
 
   const fetchSearchResults = async() => {
-    fetch(`${process.env.BACKEND_URL}/search`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/search`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -44,7 +44,7 @@ function App() {
   }
 
   const fetchSummary = async(extracts:string[]) => {
-    fetch(`${process.env.BACKEND_URL}/summary`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/summary`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ function App() {
 
   const fetchContent = async(results:ApiResponse[]) => {
     const ids = results.map((item: ApiResponse) => item.id);
-    fetch(`${process.env.BACKEND_URL}/content`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/content`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -77,7 +77,7 @@ function App() {
   };
 
   const fetchSuggestedQueries = async(extract:string) => {
-    fetch(`${process.env.BACKEND_URL}/suggested`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/suggested`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -92,7 +92,7 @@ function App() {
   };
 
   const fetchSimilarResults = async(url:string) => {
-    fetch(`${process.env.BACKEND_URL}/similar?url=${encodeURIComponent(url)}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/similar?url=${encodeURIComponent(url)}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -107,7 +107,7 @@ function App() {
   }
 
   const fetchPreviewExtract = async(id:string) => {
-    fetch(`${process.env.BACKEND_URL}/extract?id=${id}`, {
+    fetch(`${process.env.REACT_APP_BACKEND_URL}/extract?id=${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
